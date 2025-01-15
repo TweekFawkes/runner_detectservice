@@ -1,0 +1,22 @@
+runner:
+  name: Detect Service of TCP Port
+  description: Detect Service of TCP Port.
+  version: 0.0.1
+
+build:
+  commands: |
+    echo "START: Building the runner"
+    apt install -y nmap
+    echo "END: Building the runner"
+
+webform:
+  - name: ip_address
+    prompt: IP Address
+    type: text
+  - name: tcp_port
+    prompt: TCP Port
+    type: text
+
+launch:
+  type: binary
+  command: nmap -v -Pn -n -sV -p ${tcp_port} -oA outputs/ --reason ${ip_address}
